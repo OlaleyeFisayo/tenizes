@@ -17,9 +17,9 @@ function App() {
     const firstValue = dice[0].value
     const allSameValue = dice.every(die => die.value === firstValue)
     if (allHeld && allSameValue) {
-      if(numOfRolls > lowerNumberOfRolls) {
-        setLowerNumberOfRolls(localStorage.getItem("lowest") || 0)
-      } else {
+      if(lowerNumberOfRolls === 0) {
+        setLowerNumberOfRolls(numOfRolls)
+      } else if(numOfRolls < localStorage.getItem("lowest")) {
         setLowerNumberOfRolls(numOfRolls)
       }
       setTenzies(true)
@@ -27,7 +27,9 @@ function App() {
   }, [dice])
 
   useEffect(()=> {
-    if(lowerNumberOfRolls < localStorage.getItem("lowest")) {
+    if(lowerNumberOfRolls !== 0) {
+      localStorage.setItem("lowest", lowerNumberOfRolls)
+    }if(lowerNumberOfRolls < localStorage.getItem("lowest")) {
       localStorage.setItem("lowest", lowerNumberOfRolls)
     }
   },[tenzies])
