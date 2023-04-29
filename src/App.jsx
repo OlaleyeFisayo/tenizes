@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Die from "./components/Die";
 import RollDiceButton from "./components/RollDiceButton";
 import Header from "./components/Header";
