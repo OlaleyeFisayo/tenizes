@@ -4,6 +4,7 @@ import RollDiceButton from "./Components/RollDiceButton";
 import Header from "./Components/Header";
 import Confetti from "react-confetti";
 import { MyContext } from "./context/context";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
   const {
@@ -30,14 +31,16 @@ function App() {
     }
   }, [dice]);
 
-  useEffect(() => {
-    if (lowerNumberOfRolls !== 0) {
-      localStorage.setItem("lowest", lowerNumberOfRolls);
-    }
-    if (lowerNumberOfRolls < localStorage.getItem("lowest")) {
-      localStorage.setItem("lowest", lowerNumberOfRolls);
-    }
-  }, [tenzies]);
+  // useEffect(() => {
+  //   if (lowerNumberOfRolls !== 0) {
+  //     localStorage.setItem("lowest", lowerNumberOfRolls);
+  //   }
+  //   if (lowerNumberOfRolls < localStorage.getItem("lowest")) {
+  //     localStorage.setItem("lowest", lowerNumberOfRolls);
+  //   }
+  // }, [tenzies]);
+
+  useLocalStorage(lowerNumberOfRolls, tenzies)
 
   const dieElements = dice.map((die) => {
     return (
