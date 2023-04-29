@@ -7,15 +7,14 @@ import Confetti from "react-confetti";
 import { MyContext } from "./context/context";
 
 function App() {
-  const [dice, setDice] = useState(allNewDice);
-
   const {
     lowerNumberOfRolls,
     setLowerNumberOfRolls,
     numOfRolls,
-    setNumOfRolls,
     tenzies,
     setTenzies,
+    dice,
+    holdDice,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -41,45 +40,6 @@ function App() {
     }
   }, [tenzies]);
 
-  function generateNewDie() {
-    return {
-      value: Math.ceil(Math.random() * 6),
-      isHeld: false,
-      id: nanoid(),
-    };
-  }
-
-  function allNewDice() {
-    let newDice = [];
-    for (let i = 0; i < 10; i++) {
-      newDice.push(generateNewDie());
-    }
-    return newDice;
-  }
-
-  function rollDice() {
-    if (!tenzies) {
-      setNumOfRolls((prevNumOfRolls) => prevNumOfRolls + 1);
-      setDice((prevDice) =>
-        prevDice.map((die) => {
-          return die.isHeld ? die : generateNewDie();
-        })
-      );
-    } else {
-      setNumOfRolls(0);
-      setTenzies(false);
-      setDice(allNewDice());
-    }
-  }
-
-  function holdDice(dieId) {
-    setDice((prevDice) =>
-      prevDice.map((die) => {
-        return die.id === dieId ? { ...die, isHeld: !die.isHeld } : die;
-      })
-    );
-  }
-
   const dieElements = dice.map((die) => {
     return (
       <Die
@@ -96,7 +56,7 @@ function App() {
       {tenzies && <Confetti width={320} height={379} />}
       <Header />
       <div className="die-container">{dieElements}</div>
-      <RollDiceButton rollDice={rollDice} tenzies={tenzies} />
+      <RollDiceButton />
     </main>
   );
 }
