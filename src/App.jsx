@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import Die from "./components/Die";
-import RollDiceButton from "./components/RollDiceButton";
-import Header from "./components/Header";
+import Die from "./Components/Die";
+import RollDiceButton from "./Components/RollDiceButton";
+import Header from "./Components/Header";
 import Confetti from "react-confetti";
 import { MyContext } from "./context/context";
 import { useLocalStorage } from "./hooks/useLocalStorage";
