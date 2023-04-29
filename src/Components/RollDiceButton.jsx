@@ -1,10 +1,11 @@
+import { useContext } from "react";
+import { MyContext } from "../context/context";
+
 export default function RollDiceButton(props) {
-    return (
-        <button 
-            className="btn"
-            onClick={props.rollDice}
-        >
-            {props.tenzies ? "New Game" : "Roll"}
-        </button>
-    )
+  const { tenzies } = useContext(MyContext);
+  return (
+    <button className="btn" onClick={props.rollDice}>
+      {tenzies ? "New Game" : "Roll"}
+    </button>
+  );
 }
