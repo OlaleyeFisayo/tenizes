@@ -5,7 +5,7 @@ function useWinState(
   lowerNumberOfRolls,
   setLowerNumberOfRolls,
   numOfRolls,
-  setTenzies,
+  setTenzies
 ) {
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
