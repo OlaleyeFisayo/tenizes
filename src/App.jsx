@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Die from "./Components/Die";
 import RollDiceButton from "./Components/RollDiceButton";
 import Header from "./Components/Header";
-import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 import { MyContext } from "./context/context";
 
