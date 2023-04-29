@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Confetti from "react-confetti";
 import { MyContext } from "./context/context";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useWinState } from "./hooks/useWinState";
 
 function App() {
   const {
@@ -17,30 +18,29 @@ function App() {
     holdDice,
   } = useContext(MyContext);
 
-  useEffect(() => {
-    const allHeld = dice.every((die) => die.isHeld);
-    const firstValue = dice[0].value;
-    const allSameValue = dice.every((die) => die.value === firstValue);
-    if (allHeld && allSameValue) {
-      if (lowerNumberOfRolls === 0) {
-        setLowerNumberOfRolls(numOfRolls);
-      } else if (numOfRolls < localStorage.getItem("lowest")) {
-        setLowerNumberOfRolls(numOfRolls);
-      }
-      setTenzies(true);
-    }
-  }, [dice]);
-
   // useEffect(() => {
-  //   if (lowerNumberOfRolls !== 0) {
-  //     localStorage.setItem("lowest", lowerNumberOfRolls);
+  //   const allHeld = dice.every((die) => die.isHeld);
+  //   const firstValue = dice[0].value;
+  //   const allSameValue = dice.every((die) => die.value === firstValue);
+  //   if (allHeld && allSameValue) {
+  //     if (lowerNumberOfRolls === 0) {
+  //       setLowerNumberOfRolls(numOfRolls);
+  //     } else if (numOfRolls < localStorage.getItem("lowest")) {
+  //       setLowerNumberOfRolls(numOfRolls);
+  //     }
+  //     setTenzies(true);
   //   }
-  //   if (lowerNumberOfRolls < localStorage.getItem("lowest")) {
-  //     localStorage.setItem("lowest", lowerNumberOfRolls);
-  //   }
-  // }, [tenzies]);
+  // }, [dice]);
 
-  useLocalStorage(lowerNumberOfRolls, tenzies)
+  useWinState(
+    dice,
+    lowerNumberOfRolls,
+    setLowerNumberOfRolls,
+    numOfRolls,
+    setTenzies
+  );
+
+  useLocalStorage(lowerNumberOfRolls, tenzies);
 
   const dieElements = dice.map((die) => {
     return (
